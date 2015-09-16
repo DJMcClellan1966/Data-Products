@@ -7,17 +7,24 @@ shinyUI(pageWithSidebar(
   sidebarPanel(
     selectInput('xcol', 'X Variable', names(mtcars)),
     selectInput('ycol', 'Y Variable', names(mtcars),
-                selected=names(iris)[[2]]),
+                selected=names(mtcars)[[2]]),
+    selectInput('factor', 'Factor', names(mtcars),
+                selected = names(mtcars)[[3]]),
     numericInput('clusters', 'Cluster count', 3,
                  min = 1, max = 31),
-   
-    numericInput("obs", "Number of observations to view:", 10)  
-  ),
+    
+    numericInput("obs", "Number of observations to view:", 10),
+    
+    radioButtons("plotType", "Select plot type",
+                 c("plot with kmeans" = "plot1",
+                   "plot without kmeans" = "plot2")
+  )),
   mainPanel(
     tabsetPanel(
-    tabPanel("plot", plotOutput('plot1')),
-    tabPanel("Summary", verbatimTextOutput("summary")),
-    tabPanel("Table", tableOutput('view'))
+      tabPanel("plot", plotOutput('plot1')),
+      tabPanel("Summary", verbatimTextOutput("summary")),
+      tabPanel("Table", tableOutput('view')),
+      tabPanel("linearmodel", verbatimTextOutput("lm"))
     )
   )
 ))
