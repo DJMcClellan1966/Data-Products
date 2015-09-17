@@ -1,5 +1,6 @@
 library(shiny)
 library(ggplot2)
+library(wordcloud)
 
 shinyServer(function(input, output, session) {
   
@@ -11,6 +12,7 @@ shinyServer(function(input, output, session) {
   clusters <- reactive({
     kmeans(selectedData(), input$clusters)
   })
+ 
   
   output$plot1 <- renderPlot({
     par(mar = c(5.1, 4.1, 0, 1))
@@ -24,7 +26,25 @@ shinyServer(function(input, output, session) {
           plot.default(selectedData(),
                        type= input$plotType)
                
+    } else if(input$plotType == "plot3"){
+      wordcloud(rownames(mtcars), min.freq=1)
                }
+  })
+  
+  output$summary <- renderPrint({
+    datasets <- selectedData()
+    summary(datasets)
+  })
+  
+  output$view <- renderTable({
+    head(selectedData(), n=input$obs)
+})
+  
+  output$lm <- renderPrint({
+    model <- lm(input$factor~input$xcol, data= mtcars)
+    summary(model)
+  })
+})
   })
   
   output$summary <- renderPrint({
