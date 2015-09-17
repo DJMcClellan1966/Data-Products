@@ -17,7 +17,8 @@ shinyUI(pageWithSidebar(
     
     radioButtons("plotType", "Select plot type",
                  c("plot with kmeans" = "plot1",
-                   "plot without kmeans" = "plot2")
+                   "plot without kmeans" = "plot2",
+                   "wordCloud" = "plot3")
   )),
   mainPanel(
     tabsetPanel(
