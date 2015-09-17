@@ -8,6 +8,10 @@ shinyServer(function(input, output, session) {
   selectedData <- reactive({
     mtcars[, c(input$xcol, input$ycol)]
   })
+  factorData <- reactive({
+   mtcars[,c(input$factor)] 
+  })  
+  
   
   clusters <- reactive({
     kmeans(selectedData(), input$clusters)
@@ -15,7 +19,7 @@ shinyServer(function(input, output, session) {
  
   
   output$plot1 <- renderPlot({
-    par(mar = c(5.1, 4.1, 0, 1))
+    
     if (input$plotType == "plot1"){
     plot(selectedData(),
          type = input$plotType,
@@ -27,7 +31,12 @@ shinyServer(function(input, output, session) {
                        type= input$plotType)
                
     } else if(input$plotType == "plot3"){
-      wordcloud(rownames(mtcars), min.freq=1)
+      wordcloud(rownames(mtcars), min.freq=1,
+                colors=brewer.pal(7, "Accent"))
+    } else if(input$plotType == "plot4"){
+                 hist(x=factorData(),
+                      breaks = as.numeric(input$n_breaks),
+                      main = "Histogram of factor selction")
                }
   })
   
@@ -41,28 +50,7 @@ shinyServer(function(input, output, session) {
 })
   
   output$lm <- renderPrint({
-    model <- lm(input$factor~input$xcol, data= mtcars)
+    model <-lm(mpg~ factorData(), mtcars)
     summary(model)
-  })
-})
-  })
-  
-  output$summary <- renderPrint({
-    datasets <- selectedData()
-    summary(datasets)
-  })
-  
-  output$view <- renderTable({
-    head(selectedData(), n=input$obs)
-})
-  
-  output$lm <- renderPrint({
-    model <- lm(input$factor~input$xcol, data= mtcars)
-    summary(model)
-  })
-})
-
-  output$view <- renderTable({
-    head(selectedData(), n=input$obs)
-  })
-})
+    })
+    })
