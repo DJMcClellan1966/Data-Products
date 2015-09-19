@@ -1,5 +1,4 @@
-
- library(shiny)
+library(shiny)
 library(ggplot2)
 
 
@@ -13,11 +12,18 @@ shinyUI(pageWithSidebar(
     
     selectInput('factor', 'Factor', names(mtcars),
                 selected = names(mtcars)[[3]]),
+    selectInput('color', 'Color', c('None', names(mtcars))),
+    
+    checkboxInput('jitter', 'Jitter'),
+    checkboxInput('smooth', 'Smooth'),
+    
+    selectInput('facet_row', 'Facet Row', c(None='.', names(mtcars))),
+    selectInput('facet_col', 'Facet Column', c(None='.', names(mtcars))),
     
     selectInput(inputId = "n_breaks",
                 label = "Number of bins in Histogram",
-                choices = c(8, 16, 24, 32),
-                selected =  16),
+                choices = c(8,11, 16, 24, 32),
+                selected =  8),
     
     numericInput('clusters', 'Cluster count', 3,
                  min = 1, max = 31),
@@ -28,7 +34,10 @@ shinyUI(pageWithSidebar(
                  c("plot with kmeans" = "plot1",
                    "plot without kmeans" = "plot2",
                    "wordCloud" = "plot3",
-                   "Histogram" = "plot4")
+                   "Histogram" = "plot4",
+                   "pairs" = "plot5",
+                   "heatmap" = "plot6",
+                   "ggplot"= "plot7")
   )),
   mainPanel(
     tabsetPanel(
