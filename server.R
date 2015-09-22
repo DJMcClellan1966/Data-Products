@@ -3,6 +3,7 @@ palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
 library(shiny)
 library(ggplot2)
 library(wordcloud)
+library(tm)
 library("corrplot")
 
 #define server
@@ -16,12 +17,12 @@ shinyServer(function(input, output, session) {
   factorData <- reactive({
     mtcars[ ,c(input$factor)]
   })
- 
+  
   clusters <- reactive({
     kmeans(selectedData(), input$clusters)
   })
-    
-#different plot selections and output
+  
+  #different plot selections and output
   output$plot1 <- renderPlot({
     
     if (input$plotType == "plot1"){
@@ -33,9 +34,9 @@ shinyServer(function(input, output, session) {
     } else if (input$plotType == "plot2"){
       plot(selectedData(),
            col = clusters()$cluster
-                   
+           
       ) }  else if(input$plotType == "plot3"){
-        wordcloud(rownames(mtcars), min.freq=1,
+        wordcloud(rownames(selectedData()+factorData()), min.freq=0,
                   colors=brewer.pal(7, "Accent"))
       } else if(input$plotType == "plot4"){
         hist(x=factorData(),
@@ -53,7 +54,7 @@ shinyServer(function(input, output, session) {
     
   })
   
-
+  
   output$summary <- renderPrint({
     datasets <- selectedData()
     summary(datasets)#summary output of x and y
