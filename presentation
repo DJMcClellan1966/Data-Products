@@ -1,28 +1,43 @@
 ---
 title: "Data Products project"
-author: "DJMcClellan"
-date: "September 21, 2015"
+author: "DJM"
+date: "September 22, 2015"
 output: slidy_presentation
 ---
 
 This is my slidify presentation for my [Coursera](https://www.coursera.org) data project using [Shiny](http://shiny.rstudio.com) to create an app with the mtcars dataset.  Beginning with the simple example of Iris k-means clustering, I edited and expanded it to use it to interpret the mtcars dataset. 
-There are 32 observations with 11 variables `r names(mtcars)`
+There are 32 observations with 11 variables
+`r names(mtcars)`
 
-## I created a [shinyApp](https://djm1966.shinyapps.io/datasets) with 4 tabs
-
+## I created a [shinyApp](https://djm1966.shinyapps.io/datasets) with 4 tabs.
 - plot
 - summary
 - table
 - linear model
 
-## Slide with R Code and Output
+The application allows the user to:
 
-```{r}
-str(mtcars)
-```
+- Select the inputs from the dataset to run in the shinyApp.
+- Select the output to be displayed on a plot, or as a summary or table
+- Select variable to create a simple linear model against mpg.
+
+
+## Data source
+This application used the mtcars dataset that comes with rstudio, more information can be found here library(help = "datasets).
+My code can be found on [GITHUB](https://github.com/DJMcClellan1966/Data-Products)
+
 
 ## Slide with Plot
-The different plots I used were
+The different plots I used are represented here in a simplified form:
 ```{r, echo=FALSE}
-plot(cars)
+library(wordcloud)
+par(mfrow=c(3,3))
+plot(mtcars$mpg)
+wordcloud(names(mtcars),colors=brewer.pal(7, "Accent"))
+hist(x=mtcars$mpg)
+pairs(mtcars[1:4,])
+ mtscaled <-as.matrix(scale(mtcars))
+        heatmap(mtscaled,
+                col = topo.colors(200, alpha=0.5),
+                Colv=F, scale="none")
 ```
