@@ -5,7 +5,7 @@ library(ggplot2)
 #define the ui
 shinyUI(pageWithSidebar(
   headerPanel('MTCARS'),
- 
+  
   sidebarPanel(
     helpText("Create Different plots, summary data, tables, and linear model
              based on different selections on the mtcars dataset."),
@@ -16,8 +16,8 @@ shinyUI(pageWithSidebar(
     
     selectInput('factor', 'Factor', names(mtcars),#create dropdown for variety 
                 selected = names(mtcars)[[3]]),
-   
-  
+    
+    
     selectInput(inputId = "n_breaks",
                 label = "Number of bins in Histogram",
                 choices = c(8,11, 16, 24, 32),
@@ -31,11 +31,11 @@ shinyUI(pageWithSidebar(
     radioButtons("plotType", "Select plot type",
                  c("plot with kmeans: x and y, clusters" = "plot1",
                    "plot without kmeans: x and y " = "plot2",
-                   "wordCloud: no choices" = "plot3",
+                   "wordCloud: x, y and factor" = "plot3",
                    "Histogram: factor and # bins" = "plot4",
                    "pairs: x and y" = "plot5",
                    "heatmap: x and y" = "plot6")#different plot selections
-                   
+                 
     )),
   mainPanel(
     tabsetPanel(
@@ -47,6 +47,6 @@ shinyUI(pageWithSidebar(
                choose x and y, number of observations", tableOutput('view')),#table of x and y
       tabPanel("linearmodel:
                choose factor vs set mpg", verbatimTextOutput("lm"))#linear model of factor vs mpg
-    )
-  )
-))
+      )
+      )
+  ))
