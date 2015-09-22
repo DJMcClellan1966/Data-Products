@@ -36,7 +36,7 @@ shinyServer(function(input, output, session) {
            col = clusters()$cluster
            
       ) }  else if(input$plotType == "plot3"){
-        wordcloud(rownames(selectedData()+factorData()), min.freq=0,
+        wordcloud(rownames(selectedData()+factorData()), min.freq=1,
                   colors=brewer.pal(7, "Accent"))
       } else if(input$plotType == "plot4"){
         hist(x=factorData(),
