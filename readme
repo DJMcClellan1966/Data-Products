@@ -1,0 +1,5 @@
+This simple application was created by using the existing k-means clustering
+example and editing it to work with the mtcars dataset.  I have used the mtcars
+dataset to allow the user to select different x, y and factor variables to create
+different plots.  There is also different tabs the allow the use to use the sampleSelection
+to change the summary, table or linear model.
