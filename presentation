@@ -1,10 +1,20 @@
+Data Products Project
+========================================================
+author: DJM
+date: 09/24/2015
+autosize: true
+font-family: "Helvetica"
+transition: rotate
 
-This is my slidify presentation for my [Coursera](https://www.coursera.org) data project using [Shiny](http://shiny.rstudio.com) to create an app with the mtcars dataset.  Beginning with the simple example of Iris k-means clustering, I edited and expanded it to use it to interpret the mtcars dataset. 
+========================================================
+
+This is my presentation for the [Coursera](https://www.coursera.org) data project using [Shiny](http://shiny.rstudio.com) to create an app with the mtcars dataset.  Beginning with the simple example of Iris k-means clustering, I edited and expanded it to use it to interpret the mtcars dataset. 
 There are 32 observations with 11 variables
 ```{r}
 str(mtcars)
 ```
 
+============================================================
 ## I created a [shinyApp](https://djm1966.shinyapps.io/datasets) with 4 tabs.
 - plot
 - summary
@@ -17,7 +27,7 @@ The application allows the user to:
 - Select the output to be displayed on a plot, or as a        summary or table
 - Select variable to create a simple linear model against mpg.
 
-
+===================================================================
 ## Data source
 This application used the mtcars dataset that comes with rstudio, more information can be found here library(help = "datasets).
 My code can be found on [GITHUB](https://github.com/DJMcClellan1966/Data-Products)
